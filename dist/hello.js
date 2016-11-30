@@ -216,6 +216,8 @@ hello.utils.extend(hello, {
 		// API timeout in milliseconds
 		timeout: 20000,
 
+		disable_proxy: false,
+
 		// Popup Options
 		popup: {
 			resizable: 1,
@@ -417,6 +419,7 @@ hello.utils.extend(hello, {
 				client_id: provider.id,
 				network: p.network,
 				display: opts.display,
+				disable_proxy: provider.disable_proxy || opts.disable_proxy,
 				callback: callbackId,
 				state: opts.state,
 				redirect_uri: redirectUri
@@ -1450,6 +1453,14 @@ hello.utils.extend(hello.utils, {
 		if (p && p.state && (p.code || p.oauth_token)) {
 
 			var state = JSON.parse(p.state);
+
+			if (state.disable_proxy) {
+				var redirectPath = state.redirect_uri + '?access_token=' + p.code + '&state=' + p.state;
+
+				location.assign(redirectPath);
+
+				return;
+			}
 
 			// Add this path as the redirect_uri
 			p.redirect_uri = state.redirect_uri || location.href.replace(/[\?\#].*$/, '');
