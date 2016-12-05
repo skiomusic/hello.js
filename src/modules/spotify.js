@@ -19,7 +19,7 @@
 			refresh: false,
 			login: function(p) {
 				// Spotify takes in a space separated string of scopes instead of hello.js's comma separated string
-				p.qs.scope = p.qs.scope.replace(',', ' ');
+				p.qs.scope = p.qs.scope.replace(/,/g, ' ');
 			},
 
 			logout: function(callback, options) {
