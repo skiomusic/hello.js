@@ -30,6 +30,7 @@ module.exports = function(grunt) {
 			build: {
 				'dist/hello.js': [
 					'src/hello.polyfill.js',
+					'node_modules/js-base64/base64.js',
 					'src/hello.js',
 					'src/hello.chromeapp.js',
 					'src/hello.phonegap.js',
@@ -38,6 +39,7 @@ module.exports = function(grunt) {
 				],
 				'dist/hello.all.js': [
 					'src/hello.polyfill.js',
+					'node_modules/js-base64/base64.js',
 					'src/hello.js',
 					'src/hello.chromeapp.js',
 					'src/hello.phonegap.js',
