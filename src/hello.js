@@ -373,7 +373,7 @@ hello.utils.extend(hello, {
 		}
 
 		// Convert state to a string
-		p.qs.state = encodeURIComponent(JSON.stringify(p.qs.state));
+		p.qs.state = Base64.encode(JSON.stringify(p.qs.state));
 
 		// URL
 		if (parseInt(provider.oauth.version, 10) === 1) {
@@ -1299,7 +1299,7 @@ hello.utils.extend(hello.utils, {
 		// OAuth2 or OAuth1 server response?
 		if (p && p.state && (p.code || p.oauth_token)) {
 
-			var state = JSON.parse(p.state);
+			var state = JSON.parse(Base64.decode(p.state));
 
 			if (state.disable_proxy) {
 				var redirectPath = state.redirect_uri + '?access_token=' + p.code + '&state=' + p.state;
@@ -1334,7 +1334,9 @@ hello.utils.extend(hello.utils, {
 			// Remove any addition information
 			// E.g. p.state = 'facebook.page';
 			try {
-				var a = JSON.parse(p.state);
+
+				var a = JSON.parse(Base64.decode(p.state));
+
 				_this.extend(p, a);
 			}
 			catch (e) {
